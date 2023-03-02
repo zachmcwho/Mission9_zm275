@@ -21,13 +21,13 @@ namespace Mission9_zm275.Controllers
             
 
 
-        public IActionResult Index()
+        public IActionResult Books()
         {
            
             return View();
         }
 
-        public IActionResult Books(int pageNum = 1)
+        public IActionResult Index(int pageNum = 1)
         {
             int pageSize = 10;
             var x = new BookstoreViewModel

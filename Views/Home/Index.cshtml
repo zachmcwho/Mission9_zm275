@@ -1,1 +1,31 @@
-﻿
+﻿@model BookstoreViewModel
+
+@{
+    ViewData["Title"] = "View";
+}
+
+
+
+@foreach (var p in Model.Books)
+{
+    <div class="card card-outline-primary m-1 p-1">
+        <div class="bg-faded p-1">
+            <h4>
+                @p.Title
+                <span class="badge badge-pill badge-primary" style="float:right">
+                    <small>@p.Author</small>
+                </span>
+            </h4>
+        </div>
+        <div class="card-text p-1">Category: @p.Category</div>
+        <p>ISBN: @p.Isbn</p>
+        <p>Publisher: @p.Publisher</p>
+        <p>Page Count: @p.PageCount</p>
+        <p>Price: @p.Price</p>
+        
+    </div>
+}
+<div page-blah="@Model.PageInfo" page-action="Index" page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-outline-dark"
+     page-class-selected="btn-primary" class="btn-group pull-right m-1">
+</div>
