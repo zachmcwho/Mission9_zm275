@@ -11,13 +11,15 @@
 <body>
     <div class="bg-dark text-white p-2">
         <span class="navbar-brand ml-2">Book Store</span>
+        <span><a asp-controller="Home" asp-action="Index">Home</a></span>
     </div>
-    <div class="row m-1 p-1">
-        <div id="categories" class="col-3">
+    <div class="row m-1 p-1 rounded-top">
+        <div id="categories" class="col-2">
+            <vc:types></vc:types>
             
         </div>
-        <a asp-controller="Home" asp-action="Index">Home</a>
-        <div class="col-9">
+        
+        <div class="col-sm-10">
             @RenderBody()
         </div>
     </div>

@@ -27,27 +27,29 @@ namespace Mission9_zm275.Controllers
             return View();
         }
 
-        public IActionResult Index(int pageNum = 1)
+        public IActionResult Index(string projectType, int pageNum = 1)
         {
             int pageSize = 10;
             var x = new BookstoreViewModel
             {
                 Books = repo.Book.OrderBy(p => p.Title)
+                .Where(p => p.Category == projectType || projectType == null)
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize),
                 PageInfo = new PageInfo
                 {
-                    TotalNumBooks = repo.Book.Count(),
+                    TotalNumBooks = (projectType == null ? 
+                    repo.Book.Count() : repo.Book.Where(x => x.Category == projectType).Count()),
                     BooksPerPage = pageSize,
                     CurrentPage = pageNum
                 }
             };
             //change page size if there arent enough books
-            if (x.PageInfo.TotalNumBooks < x.PageInfo.BooksPerPage)
-            {
-                x.PageInfo.BooksPerPage = x.PageInfo.TotalNumBooks;
-                x.Books = repo.Book.OrderBy(p => p.Title).Take(x.PageInfo.TotalNumBooks);
-            }
+            //if (x.PageInfo.TotalNumBooks < x.PageInfo.BooksPerPage)
+            //{
+            //    x.PageInfo.BooksPerPage = x.PageInfo.TotalNumBooks;
+            //    x.Books = repo.Book.OrderBy(p => p.Title).Take(x.PageInfo.TotalNumBooks);
+            //}
 
             return View(x);
         }
