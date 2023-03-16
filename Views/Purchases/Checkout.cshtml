@@ -9,6 +9,8 @@
 <p>Enter details below:</p>
 
 <form method="post" asp-controller="Purchases" asp-action="Checkout">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
     <h4>Ship To</h4>
 
     <div class="form-group">

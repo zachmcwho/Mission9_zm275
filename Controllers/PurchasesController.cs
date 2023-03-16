@@ -9,10 +9,12 @@ namespace Mission9_zm275.Controllers
 {
     public class PurchasesController : Controller
     {
-
-        public PurchasesController()
+        private IPurchasesRepository repo { get; set; }
+        private Basket basket { get; set; }
+        public PurchasesController(IPurchasesRepository temp, Basket b)
         {
-
+            repo = temp;
+            basket = b;
         }
         [HttpGet]
         public IActionResult Checkout()
@@ -22,7 +24,20 @@ namespace Mission9_zm275.Controllers
         [HttpPost]
         public IActionResult Checkout(Purchase purchase)
         {
-            
+            if (basket.Items.Count() == 0)
+            {
+                ModelState.AddModelError("", "Sorry, your basket is empty!");
+            }
+            if (ModelState.IsValid){
+                purchase.Lines = basket.Items.ToArray();
+                basket.ClearBasket();
+
+                return RedirectToPage("/PurchaseCompleted");
+            }
+            else
+            {
+                return View(); 
+            }
         }
     }
 }

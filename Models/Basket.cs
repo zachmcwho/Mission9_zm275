@@ -10,7 +10,7 @@ namespace Mission9_zm275.Models
     {
         public List<BasketLineItem> Items { get; set; } = new List<BasketLineItem>();
 
-        public void AddItem (Books book, int qty)
+        public virtual void AddItem (Books book, int qty)
         {
             BasketLineItem line = Items
                 .Where(p => p.Books.BookId == book.BookId)
@@ -29,12 +29,23 @@ namespace Mission9_zm275.Models
                 line.Quantity = line.Quantity + qty;
             }
         }
+        public virtual void RemoveItem (Books book)
+        {
+            Items.RemoveAll(x => x.Books.BookId == book.BookId);
+        }
+
+        public virtual void ClearBasket()
+        {
+            Items.Clear();
+        }
+
         public double CalculateTotal()
         {
             double sum = Items.Sum(x => x.Quantity * x.Books.Price);
 
             return sum;
         }
+        
     }
    
     public class BasketLineItem
@@ -45,4 +56,5 @@ namespace Mission9_zm275.Models
         public int Quantity { get; set; }
 
     }
+
 }

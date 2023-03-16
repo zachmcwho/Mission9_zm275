@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,11 +13,18 @@ namespace Mission9_zm275.Models
         {
             context = temp;
         }
-        public IQueryable<Purchase> Purchases => throw new NotImplementedException();
+        public IQueryable<Purchase> Purchases => context.Purchases.Include(x => x.Lines).ThenInclude(x => x.Books);
 
         public void SavePurchase(Purchase purchase)
         {
-            throw new NotImplementedException();
+            context.AttachRange(purchase.Lines.Select(x => x.Books));
+
+            if (purchase.PurchaseId == 0)
+            {
+                context.Purchases.Add(purchase);
+            }
+
+            context.SaveChanges();
         }
     }
 
