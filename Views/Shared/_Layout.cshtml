@@ -14,20 +14,11 @@
 <body>
     <div class="bg-dark text-white p-2">
         <span class="navbar-brand ml-2">Book Store</span>
+        <vc:basket-summary />
         <span><a asp-controller="Home" asp-action="Index">Home</a></span>
     </div>
-    <div class="shopping-cart">
-        <i class="fas fa-shopping-cart"></i>
-        <div class="notification-icon">
-            <i class="fas fa-book"></i>
-            <span class="notification-count">0</span>
-        </div>
-
-        <span class="notification-count">0</span>
-    </div>
-
-    <span class="total">0.00</span>
-    </div>
+    
+    
     <div class="row m-1 p-1 rounded-top">
         <div id="categories" class="col-2">
             <vc:types></vc:types>
