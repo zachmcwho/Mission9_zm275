@@ -30,6 +30,7 @@ namespace Mission9_zm275.Controllers
             }
             if (ModelState.IsValid){
                 purchase.Lines = basket.Items.ToArray();
+                repo.SavePurchase(purchase);
                 basket.ClearBasket();
 
                 return RedirectToPage("/PurchaseCompleted");
